@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 require_relative './parsers'
 require_relative './util'
+require_relative './variants'
 
 WIKI_URL = 'https://en.wikipedia.org/wiki/List_of_cuneiform_signs'
 doc = Nokogiri::HTML(open(WIKI_URL))
@@ -45,4 +46,16 @@ final = {
 wf = File.open('./signs.json', 'w')
 _json = JSON.pretty_generate(final)
 wf.puts _json
-wf.close()
+wf.close
+
+# Output the by_unicode_char version
+wff = File.open('./by_unicode_char.json', 'w')
+by_u_char = by_unicode_char(results)
+wff.puts JSON.pretty_generate(by_u_char)
+wff.close
+
+# Output by_unicode_int version
+wfg = File.open('./by_unicode_int.json', 'w')
+by_u_int = by_unicode_int(results)
+wfg.puts JSON.pretty_generate(by_u_int)
+wfg.close

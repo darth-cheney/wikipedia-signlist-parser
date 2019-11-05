@@ -1,3 +1,5 @@
+require_relative './variants'
+
 def row_has_headers(row)
   row.css('th').length > 0
 end
@@ -25,5 +27,6 @@ def scrub_data_row(entry)
       scrubbed[key] = val
     end
   end
+  add_unicode_extras(scrubbed)
   scrubbed
 end
